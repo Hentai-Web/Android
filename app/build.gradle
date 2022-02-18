@@ -1,10 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.chrisney.enigma'
 apply plugin: 'com.google.firebase.crashlytics'
-
-enigma.enabled = true
-enigma.injectFakeKeys = true
 
 android {
     compileSdkVersion 31
