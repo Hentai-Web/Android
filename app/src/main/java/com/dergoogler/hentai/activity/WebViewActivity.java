@@ -34,6 +34,7 @@ import com.dergoogler.hentai.zero.webview.CSWebChromeClient;
 import com.dergoogler.hentai.zero.webview.CSWebViewClient;
 import com.dergoogler.hentai.bridge.AndroidBridge;
 import com.dergoogler.hentai.webview.WebViewHelper;
+import com.google.android.gms.common.internal.LibraryVersion;
 
 import java.util.Objects;
 import java.util.concurrent.Executor;
@@ -50,8 +51,8 @@ public class WebViewActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         nativaeLocalstorage = this.getSharedPreferences(Lib.getStorageKey(), Activity.MODE_PRIVATE);
 
-        if (!nativaeLocalstorage.contains("language")) {
-            nativaeLocalstorage.edit().putString("language", "en").apply();
+        if (!nativaeLocalstorage.contains(Lib.getLanguagePrefKey())) {
+            nativaeLocalstorage.edit().putString(Lib.getLanguagePrefKey(), Lib.en()).apply();
         }
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -101,12 +102,12 @@ public class WebViewActivity extends BaseActivity {
         });
 
         BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric login for Hentai Web")
-                .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use password")
+                .setTitle(Lib.getBiometricPromptTitle())
+                .setSubtitle(Lib.getBiometricPromptSubTitle())
+                .setNegativeButtonText(Lib.getBiometricPromptButtonTitle())
                 .build();
 
-        if (nativaeLocalstorage.getString("useFingerPrintToLogin", "").equals("true")) {
+        if (nativaeLocalstorage.getString(Lib.getFingerprintPrefKey(), "").equals(Lib.getTrue())) {
             biometricPrompt.authenticate(promptInfo);
         } else {
             init();
@@ -120,37 +121,21 @@ public class WebViewActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.R)
     @SuppressLint("AddJavascriptInterface")
     private void init() {
-        WebView contentView = findViewById(R.id.contentView);
-
-        if (null == contentView) {
-            DialogBuilder.with(getActivity())
-                    .setMessage("The contentView does not exist.")
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> finish())
-                    .show();
-            return;
-        }
-
-        this.webview = WebViewHelper.addWebView(getContext(), contentView);
-
-        // set webViewClient
         CSWebViewClient webviewClient = new CSWebViewClient(getContext());
         this.webview.setWebViewClient(webviewClient);
 
-        // set webChromeClient
         CSWebChromeClient webChromeClient = new CSWebChromeClient(getContext());
         this.webview.setWebChromeClient(webChromeClient);
 
-        // add interface
         this.webview.addJavascriptInterface(new AndroidBridge(webview), Lib.getInterfaceName());
 
-        // add download listener
         this.webview.setDownloadListener(new CSDownloadListener(getActivity()));
 
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        FileUtil.makeDir(Environment.getExternalStorageDirectory() + "/hentai-web/");
+        FileUtil.makeDir(Environment.getExternalStorageDirectory() + Lib.getFolderPath());
 
-        if (FileUtil.readFile(FileUtil.getExternalStorageDir() + "/hentai-web/debug.txt").equals("true")) {
+        if (FileUtil.readFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath() + "debug.txt").equals(Lib.getTrue())) {
             WebViewHelper.loadUrl(this.webview, Lib.getDebugURl());
         } else {
             WebViewHelper.loadUrl(this.webview, Lib.getReleaseURl());

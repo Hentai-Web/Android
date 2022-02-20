@@ -12,6 +12,7 @@ import android.webkit.WebView;
 
 import com.dergoogler.hentai.BuildConfig;
 
+import com.dergoogler.hentai.tools.Lib;
 import com.dergoogler.hentai.zero.permission.RPermission;
 import com.dergoogler.hentai.zero.permission.RPermissionListener;
 import com.dergoogler.hentai.zero.util.PackageUtil;
@@ -26,12 +27,12 @@ import java.util.Map;
 public class WebViewHelper {
     private static final String TAG = WebViewHelper.class.getSimpleName();
 
-    private static final String SCHEME_HTTP = "http://";
-    private static final String SCHEME_HTTPS = "https://";
-    private static final String SCHEME_FILE = "file://";
-    private static final String SCHEME_ASSET = "file:///android_asset";
+    private static final String SCHEME_HTTP = Lib.SCHEME_HTTP();
+    private static final String SCHEME_HTTPS = Lib.SCHEME_HTTPS();
+    private static final String SCHEME_FILE = Lib.SCHEME_FILE();
+    private static final String SCHEME_ASSET = Lib.SCHEME_ASSET();
     private static final String SCHEME_ASSET_API30 = SCHEME_HTTPS + BuildConfig.ASSET_BASE_DOMAIN + BuildConfig.ASSET_PATH;
-    private static final String SCHEME_RES = "file:///android_res";
+    private static final String SCHEME_RES = Lib.SCHEME_RES();
     private static final String SCHEME_RES_API30 = SCHEME_HTTPS + BuildConfig.ASSET_BASE_DOMAIN + BuildConfig.RES_PATH;
 
     public static WebView addWebView(Context context, ViewGroup parentView) {

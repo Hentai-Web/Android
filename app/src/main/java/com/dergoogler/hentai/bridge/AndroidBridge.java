@@ -187,18 +187,23 @@ public class AndroidBridge {
     }
 
     @JavascriptInterface
+    public String requireSDK() {
+        return String.valueOf(Build.VERSION.SDK_INT);
+    }
+
+    @JavascriptInterface
     public String readFile(String path) {
-        return FileUtil.readFile(FileUtil.getExternalStorageDir() + "/hentai-web/" + path);
+        return FileUtil.readFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath() + path);
     }
 
     @JavascriptInterface
     public void writeFile(String path, String content) {
-        FileUtil.writeFile(FileUtil.getExternalStorageDir() + "/hentai-web/" + path, content);
+        FileUtil.writeFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath() + path, content);
     }
 
     @JavascriptInterface
     public void mkDir(String path) {
-        FileUtil.makeDir(FileUtil.getExternalStorageDir() + "/hentai-web/" + path);
+        FileUtil.makeDir(FileUtil.getExternalStorageDir() + Lib.getFolderPath() + path);
     }
 
     @JavascriptInterface
@@ -208,6 +213,6 @@ public class AndroidBridge {
 
     @JavascriptInterface
     public boolean isFileExist(String path) {
-        return FileUtil.isExistFile(FileUtil.getExternalStorageDir() + "/hentai-web/" + path);
+        return FileUtil.isExistFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath() + path);
     }
 }
