@@ -1,44 +1,22 @@
 package com.dergoogler.hentai.tools;
 
 public class Lib {
-    static {
-        System.loadLibrary("native-lib");
-    }
-
-    public static native String getReleaseURl();
-
-    public static native String getDebugURl();
-
-    public static native String getInterfaceName();
-
-    public static native String getUserAgent();
-
-    public static native String getStorageKey();
-
-    public static native String getFolderPath();
-
-    public static native String getFingerprintPrefKey();
-
-    public static native String getLanguagePrefKey();
-
-    public static native String en();
-
-    public static native String getTrue();
-
-    public static native String getBiometricPromptTitle();
-
-    public static native String getBiometricPromptSubTitle();
-
-    public static native String getBiometricPromptButtonTitle();
-
-    public static native String SCHEME_HTTP();
-
-    public static native String SCHEME_HTTPS();
-
-    public static native String SCHEME_FILE();
-
-    public static native String SCHEME_ASSET();
-
-    public static native String SCHEME_RES();
-
+    public static String getReleaseURl = "https://hw.dergoogler.com";
+    public static String getDebugURl = "http://192.168.178.81:5500/";
+    public static String getInterfaceName = "Android";
+    public static String getUserAgent = "HENTAI_WEB_AGENT";
+    public static String getStorageKey = "localstorage";
+    public static String getFolderPath = "/hentai-web/";
+    public static String getFingerprintPrefKey = "useFingerPrintToLogin";
+    public static String getLanguagePrefKey = "language";
+    public static String en = "en";
+    public static String getTrue = "true";
+    public static String getBiometricPromptTitle = "Biometric login for Hentai Web";
+    public static String getBiometricPromptSubTitle = "Log in using your biometric credential";
+    public static String getBiometricPromptButtonTitle = "Use password";
+    public static String SCHEME_HTTP = "http://";
+    public static String SCHEME_HTTPS = "https://";
+    public static String SCHEME_FILE = "file://";
+    public static String SCHEME_ASSET = "file://android_asset";
+    public static String SCHEME_RES = "file://android_res";
 }

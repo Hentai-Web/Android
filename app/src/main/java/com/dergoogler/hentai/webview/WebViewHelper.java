@@ -27,12 +27,12 @@ import java.util.Map;
 public class WebViewHelper {
     private static final String TAG = WebViewHelper.class.getSimpleName();
 
-    private static final String SCHEME_HTTP = Lib.SCHEME_HTTP();
-    private static final String SCHEME_HTTPS = Lib.SCHEME_HTTPS();
-    private static final String SCHEME_FILE = Lib.SCHEME_FILE();
-    private static final String SCHEME_ASSET = Lib.SCHEME_ASSET();
+    private static final String SCHEME_HTTP = Lib.SCHEME_HTTP;
+    private static final String SCHEME_HTTPS = Lib.SCHEME_HTTPS;
+    private static final String SCHEME_FILE = Lib.SCHEME_FILE;
+    private static final String SCHEME_ASSET = Lib.SCHEME_ASSET;
     private static final String SCHEME_ASSET_API30 = SCHEME_HTTPS + BuildConfig.ASSET_BASE_DOMAIN + BuildConfig.ASSET_PATH;
-    private static final String SCHEME_RES = Lib.SCHEME_RES();
+    private static final String SCHEME_RES = Lib.SCHEME_RES;
     private static final String SCHEME_RES_API30 = SCHEME_HTTPS + BuildConfig.ASSET_BASE_DOMAIN + BuildConfig.RES_PATH;
 
     public static WebView addWebView(Context context, ViewGroup parentView) {

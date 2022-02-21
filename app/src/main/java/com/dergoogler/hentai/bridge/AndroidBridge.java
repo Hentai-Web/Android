@@ -83,19 +83,19 @@ public class AndroidBridge {
 
     @JavascriptInterface
     public void setPref(String key, String content) {
-        SharedPreferences nativaeLocalstorage = webView.getContext().getSharedPreferences(Lib.getStorageKey(), Activity.MODE_PRIVATE);
+        SharedPreferences nativaeLocalstorage = webView.getContext().getSharedPreferences(Lib.getStorageKey, Activity.MODE_PRIVATE);
         nativaeLocalstorage.edit().putString(key, content).apply();
     }
 
     @JavascriptInterface
     public String getPref(String key) {
-        SharedPreferences nativaeLocalstorage = webView.getContext().getSharedPreferences(Lib.getStorageKey(), Activity.MODE_PRIVATE);
+        SharedPreferences nativaeLocalstorage = webView.getContext().getSharedPreferences(Lib.getStorageKey, Activity.MODE_PRIVATE);
         return nativaeLocalstorage.getString(key, "");
     }
 
     @JavascriptInterface
     public void removePref(String key) {
-        SharedPreferences nativaeLocalstorage = webView.getContext().getSharedPreferences(Lib.getStorageKey(), Activity.MODE_PRIVATE);
+        SharedPreferences nativaeLocalstorage = webView.getContext().getSharedPreferences(Lib.getStorageKey, Activity.MODE_PRIVATE);
         nativaeLocalstorage.edit().remove(key).apply();
     }
 
@@ -193,17 +193,17 @@ public class AndroidBridge {
 
     @JavascriptInterface
     public String readFile(String path) {
-        return FileUtil.readFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath() + path);
+        return FileUtil.readFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath + path);
     }
 
     @JavascriptInterface
     public void writeFile(String path, String content) {
-        FileUtil.writeFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath() + path, content);
+        FileUtil.writeFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath + path, content);
     }
 
     @JavascriptInterface
     public void mkDir(String path) {
-        FileUtil.makeDir(FileUtil.getExternalStorageDir() + Lib.getFolderPath() + path);
+        FileUtil.makeDir(FileUtil.getExternalStorageDir() + Lib.getFolderPath + path);
     }
 
     @JavascriptInterface
@@ -213,6 +213,6 @@ public class AndroidBridge {
 
     @JavascriptInterface
     public boolean isFileExist(String path) {
-        return FileUtil.isExistFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath() + path);
+        return FileUtil.isExistFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath + path);
     }
 }

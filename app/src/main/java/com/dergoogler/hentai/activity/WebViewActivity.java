@@ -49,10 +49,10 @@ public class WebViewActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        nativaeLocalstorage = this.getSharedPreferences(Lib.getStorageKey(), Activity.MODE_PRIVATE);
+        nativaeLocalstorage = this.getSharedPreferences(Lib.getStorageKey, Activity.MODE_PRIVATE);
 
-        if (!nativaeLocalstorage.contains(Lib.getLanguagePrefKey())) {
-            nativaeLocalstorage.edit().putString(Lib.getLanguagePrefKey(), Lib.en()).apply();
+        if (!nativaeLocalstorage.contains(Lib.getLanguagePrefKey)) {
+            nativaeLocalstorage.edit().putString(Lib.getLanguagePrefKey, Lib.en).apply();
         }
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -102,12 +102,12 @@ public class WebViewActivity extends BaseActivity {
         });
 
         BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle(Lib.getBiometricPromptTitle())
-                .setSubtitle(Lib.getBiometricPromptSubTitle())
-                .setNegativeButtonText(Lib.getBiometricPromptButtonTitle())
+                .setTitle(Lib.getBiometricPromptTitle)
+                .setSubtitle(Lib.getBiometricPromptSubTitle)
+                .setNegativeButtonText(Lib.getBiometricPromptButtonTitle)
                 .build();
 
-        if (nativaeLocalstorage.getString(Lib.getFingerprintPrefKey(), "").equals(Lib.getTrue())) {
+        if (nativaeLocalstorage.getString(Lib.getFingerprintPrefKey, "").equals(Lib.getTrue)) {
             biometricPrompt.authenticate(promptInfo);
         } else {
             init();
@@ -121,26 +121,30 @@ public class WebViewActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.R)
     @SuppressLint("AddJavascriptInterface")
     private void init() {
+        WebView contentView = findViewById(R.id.contentView);
+
+        this.webview = WebViewHelper.addWebView(getContext(), contentView);
+
         CSWebViewClient webviewClient = new CSWebViewClient(getContext());
         this.webview.setWebViewClient(webviewClient);
 
         CSWebChromeClient webChromeClient = new CSWebChromeClient(getContext());
         this.webview.setWebChromeClient(webChromeClient);
 
-        this.webview.addJavascriptInterface(new AndroidBridge(webview), Lib.getInterfaceName());
+        this.webview.addJavascriptInterface(new AndroidBridge(webview), Lib.getInterfaceName);
 
         this.webview.setDownloadListener(new CSDownloadListener(getActivity()));
 
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        FileUtil.makeDir(Environment.getExternalStorageDirectory() + Lib.getFolderPath());
+        FileUtil.makeDir(Environment.getExternalStorageDirectory() + Lib.getFolderPath);
 
-        if (FileUtil.readFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath() + "debug.txt").equals(Lib.getTrue())) {
-            WebViewHelper.loadUrl(this.webview, Lib.getDebugURl());
+        if (FileUtil.readFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath + "debug.txt").equals(Lib.getTrue)) {
+            WebViewHelper.loadUrl(this.webview, Lib.getDebugURl);
         } else {
-            WebViewHelper.loadUrl(this.webview, Lib.getReleaseURl());
+            WebViewHelper.loadUrl(this.webview, Lib.getReleaseURl);
         }
-        WebViewHelper.setUserAgentString(this.webview, Lib.getUserAgent());
+        WebViewHelper.setUserAgentString(this.webview, Lib.getUserAgent);
 
 
     }

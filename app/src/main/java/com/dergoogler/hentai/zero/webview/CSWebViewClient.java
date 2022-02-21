@@ -72,7 +72,7 @@ public class CSWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if (url.contains(Lib.getReleaseURl()) || url.contains(Lib.getDebugURl())) {
+        if (url.contains(Lib.getReleaseURl) || url.contains(Lib.getDebugURl)) {
             view.loadUrl(url);
         } else {
             Uri uri = Uri.parse(url);
@@ -95,7 +95,7 @@ public class CSWebViewClient extends WebViewClient {
 
         String url = Uri.decode(request.getUrl().toString());
 
-        if (url.contains(Lib.getReleaseURl()) || url.contains(Lib.getDebugURl())) {
+        if (url.contains(Lib.getReleaseURl) || url.contains(Lib.getDebugURl)) {
             view.loadUrl(url);
         } else {
             Uri uri = Uri.parse(url);

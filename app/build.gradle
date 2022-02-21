@@ -16,15 +16,6 @@ android {
         versionCode 140
         versionName '1.4.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        externalNativeBuild {
-            cmake {
-                cppFlags ""
-                arguments "-DANDROID_STL=c++_shared"
-            }
-        }
-        ndk {
-            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
-        }
         multiDexEnabled true
         buildConfigField "boolean", "FEATURE_EXTERNAL_STORAGE_DIR", "false"
         buildConfigField "boolean", "FEATURE_WEBVIEW_ASSET_LOADER", "true"
@@ -59,13 +50,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            //signingConfig signingConfigs.storeFile
-        }
-    }
+            jniDebuggable true
+            debuggable true
+            renderscriptDebuggable true
+            multiDexEnabled false
 
-    externalNativeBuild {
-        cmake {
-            path "CMakeLists.txt"
+            //signingConfig signingConfigs.storeFile
         }
     }
 
