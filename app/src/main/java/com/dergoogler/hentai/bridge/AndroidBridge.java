@@ -25,7 +25,9 @@ import androidx.browser.customtabs.CustomTabsIntent;
 
 import com.dergoogler.hentai.activity.WebViewActivity;
 import com.dergoogler.hentai.tools.Lib;
+import com.dergoogler.hentai.zero.dialog.DialogBuilder;
 import com.dergoogler.hentai.zero.download.CSDownloadManager;
+import com.dergoogler.hentai.zero.log.Logger;
 import com.dergoogler.hentai.zero.util.FileUtil;
 import com.dergoogler.hentai.zero.util.PackageUtil;
 
@@ -214,5 +216,14 @@ public class AndroidBridge {
     @JavascriptInterface
     public boolean isFileExist(String path) {
         return FileUtil.isExistFile(FileUtil.getExternalStorageDir() + Lib.getFolderPath + path);
+    }
+
+    @JavascriptInterface
+    public void dialog(String title, String message) {
+        DialogBuilder.with(webView.getContext())
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> Logger.i(TAG, ""))
+                .show();
     }
 }
