@@ -13,8 +13,8 @@ android {
         applicationId 'com.dergoogler.hentai'
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 140
-        versionName '1.4.0'
+        versionCode 141
+        versionName '1.4.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         buildConfigField "boolean", "FEATURE_EXTERNAL_STORAGE_DIR", "false"
@@ -60,12 +60,6 @@ android {
     }
 
     flavorDimensions "version"
-    productFlavors {
-        free {
-            dimension "version"
-            manifestPlaceholders = [applicationLabel: "@string/app_name"]
-        }
-    }
     sourceSets {
         main {
             res.srcDirs = ["src/main/res"]
