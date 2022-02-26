@@ -22,6 +22,15 @@ android {
         buildConfigField "String", "ASSET_BASE_DOMAIN", "\"dergoogler.com\""
         buildConfigField "String", "ASSET_PATH", "\"/assets/\""
         buildConfigField "String", "RES_PATH", "\"/res/\""
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+                arguments "-DANDROID_STL=c++_shared"
+            }
+        }
+        ndk {
+            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
     }
 
     dexOptions {
@@ -59,11 +68,19 @@ android {
         }
     }
 
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+
     flavorDimensions "version"
     sourceSets {
         main {
             res.srcDirs = ["src/main/res"]
             assets.srcDirs = ["src/main/assets"]
+            jniLibs.srcDirs = ["libs"]
+
         }
     }
     compileOptions {

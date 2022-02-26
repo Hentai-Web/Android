@@ -1,6 +1,11 @@
 package com.dergoogler.hentai.tools;
 
 public class Lib {
+    static {
+        System.loadLibrary("native-lib");
+        System.loadLibrary("node");
+    }
+
     public static String getReleaseURl = "https://hw.dergoogler.com";
     public static String getDebugURl = "http://192.168.178.81:5500/";
     public static String getInterfaceName = "Android";
@@ -19,4 +24,7 @@ public class Lib {
     public static String SCHEME_FILE = "file://";
     public static String SCHEME_ASSET = "file://android_asset";
     public static String SCHEME_RES = "file://android_res";
+
+
+    public native static Integer startNodeWithArguments(String[] arguments);
 }

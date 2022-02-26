@@ -22,7 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
-import com.dergoogler.hentai.BuildConfig;
+//import com.dergoogler.hentai.BuildConfig;
 import com.dergoogler.hentai.R;
 import com.dergoogler.hentai.tools.Lib;
 import com.dergoogler.hentai.zero.activity.BaseActivity;
@@ -34,7 +34,6 @@ import com.dergoogler.hentai.zero.webview.CSWebChromeClient;
 import com.dergoogler.hentai.zero.webview.CSWebViewClient;
 import com.dergoogler.hentai.bridge.AndroidBridge;
 import com.dergoogler.hentai.webview.WebViewHelper;
-import com.google.android.gms.common.internal.LibraryVersion;
 
 import java.util.Objects;
 import java.util.concurrent.Executor;
@@ -44,11 +43,31 @@ public class WebViewActivity extends BaseActivity {
     private SharedPreferences nativaeLocalstorage;
     private WebView webview;
 
+    //We just want one instance of node running in the background.
+    public static boolean _startedNodeAlready=false;
+
     @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if( !_startedNodeAlready ) {
+            _startedNodeAlready=true;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Lib.startNodeWithArguments(new String[]{"node", "-e",
+                            "var http = require('http'); " +
+                                    "var versions_server = http.createServer( (request, response) => { " +
+                                    "  response.end('Versions: ' + JSON.stringify(process.versions)); " +
+                                    "}); " +
+                                    "versions_server.listen(3000);"
+                    });
+                }
+            }).start();
+        }
+
         nativaeLocalstorage = this.getSharedPreferences(Lib.getStorageKey, Activity.MODE_PRIVATE);
 
         if (!nativaeLocalstorage.contains(Lib.getLanguagePrefKey)) {
@@ -113,9 +132,9 @@ public class WebViewActivity extends BaseActivity {
             init();
         }
 
-        if (BuildConfig.DEBUG) {
+        //if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true);
-        }
+        //}
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
