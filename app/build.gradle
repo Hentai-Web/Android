@@ -79,8 +79,6 @@ android {
         main {
             res.srcDirs = ["src/main/res"]
             assets.srcDirs = ["src/main/assets"]
-            jniLibs.srcDirs = ["libs"]
-
         }
     }
     compileOptions {
